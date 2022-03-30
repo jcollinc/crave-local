@@ -6,7 +6,6 @@ function Filter ({search, setSearch}) {
 
     return(
         <div>
-            <label>Search: </label>
             <input type="text" placeholder="Search" onChange={handleSearch} value={search}/>
         </div>
     )

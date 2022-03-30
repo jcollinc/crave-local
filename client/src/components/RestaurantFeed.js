@@ -18,7 +18,7 @@ function RestaurantFeed () {
      const filteredDisplay = restaurants
      .filter((restaurant) => {
          return (
-             restaurant.name.toLowerCase().includes(search.toLowerCase()) ||   restaurant.description.toLowerCase().includes(search.toLowerCase())
+             restaurant.name.toLowerCase().includes(search.toLowerCase()) || restaurant.description.toLowerCase().includes(search.toLowerCase())
          )
      })
 

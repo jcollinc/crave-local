@@ -6,6 +6,22 @@ function ShoppingCart ({ cartItems, onAdd, onRemove, menuItems}) {
     const taxPrice = allItemsPrice * .08
     const totalPrice = allItemsPrice + taxPrice 
 
+    //function to post order to orders 
+    //think i need qty too 
+
+    function handleOrderSubmit () {
+        window.alert('Order Submitted')
+        let cartItemsString = cartItems.map((item) => item.name +" x"+ item.qty).join(", ")
+    
+        let newOrder = { 
+            items: cartItemsString, 
+            total: totalPrice,
+         }
+         console.log(newOrder)
+         console.log(cartItems)
+        
+    }
+
     return (
         
         <>
@@ -54,7 +70,7 @@ function ShoppingCart ({ cartItems, onAdd, onRemove, menuItems}) {
                 </div>
                 <hr />
                 <div className="row">
-                <button onClick={() => alert('Order Submitted')}>
+                <button onClick={handleOrderSubmit}>
                     Checkout
                 </button>
                 </div>

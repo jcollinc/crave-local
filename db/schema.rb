@@ -49,6 +49,7 @@ ActiveRecord::Schema.define(version: 2022_03_24_183446) do
     t.bigint "user_id", null: false
     t.bigint "restaurant_id", null: false
     t.float "total"
+    t.string "items"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["restaurant_id"], name: "index_orders_on_restaurant_id"

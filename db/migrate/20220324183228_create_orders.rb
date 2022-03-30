@@ -4,6 +4,7 @@ class CreateOrders < ActiveRecord::Migration[6.1]
       t.belongs_to :user, null: false, foreign_key: true
       t.belongs_to :restaurant, null: false, foreign_key: true
       t.float :total
+      t.string :items
 
       t.timestamps
     end
