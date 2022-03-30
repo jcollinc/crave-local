@@ -171,7 +171,7 @@ function MenuPage ({restaurants}) {
 
     function handleEditFormInputs (e) {
         const input = e.target.value
-        setEditFormInput({...editFormInput, [e.target.name]: input})
+        setEditFormInput({...editFormInput, [e.target.name]: input, menu_id:restaurantId, restaurant_id:restaurantId})
         console.log(editFormInput)
     }
 

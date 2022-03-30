@@ -28,7 +28,7 @@ function MenuItem ({menuItemId, item, handleEdit, showEditForm, editForm, handle
                 </div>}
                 <img className="food-img" src={image_url} alt={name}></img> 
                 <div className="edit-item-div">
-                    <button id={id} className ="button" onClick={handleEdit}> {showEditForm ? "Cancel" : "Edit"} </button>
+                    <button id={id} className ="button" onClick={handleEdit}> Edit </button>
                     <button id={id} className ="button" onClick={handleDelete}> Delete </button>
                     <button onClick={() => onAdd(item)}> Add To Cart </button>
                 </div>

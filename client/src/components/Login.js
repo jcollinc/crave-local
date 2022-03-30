@@ -1,12 +1,12 @@
 import React, {useState} from "react";
 import { useHistory } from "react-router-dom";
 
-function Login() {
+function Login({ currentUser, setCurrentUser }) {
   
   const [user, setUser] = useState("")  
   const [password, setPassword] = useState("")
   const [error, setError] = useState(null)
-  const [currentUser, setCurrentUser] = useState()
+ 
 
   let history = useHistory();
     
@@ -27,6 +27,7 @@ function Login() {
           setCurrentUser(data)
           history.push("/restaurants")
         }
+        if (currentUser) {console.log(currentUser.name)}
       }) 
   }
   
