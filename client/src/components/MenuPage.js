@@ -70,30 +70,14 @@ function MenuPage ({restaurants}) {
                 value={formInput.image_url}
             />
         </label>
-        <label>
-            Menu ID:
-            <input 
-                onChange={handleNewFormInputs} 
-                type="text" 
-                name="menu_id" 
-                value={formInput.menu_id}
-            />
-        </label>
-        <label>
-            Restaurant ID:
-            <input 
-                onChange={handleNewFormInputs} 
-                type="text" 
-                name="restaurant_id" 
-                value={formInput.restaurant_id}
-            />
-        </label>
         <input 
             className="button" 
             type="submit" 
             value="Submit" 
         />
     </form>
+
+    let formDefault = menuItems.find(item => item.id == menuItemId)
 
     const editForm = 
     <form
@@ -108,7 +92,7 @@ function MenuPage ({restaurants}) {
                 name="name"
                 value={editFormInput.name}
                 defaultValue={
-                    menuItemId ? menuItems.find(item => item.id == menuItemId).name : ""
+                    formDefault ? formDefault.name : ""
                 }
             />
         </label>
@@ -120,7 +104,7 @@ function MenuPage ({restaurants}) {
                 name="description" 
                 value={editFormInput.description}
                 defaultValue={
-                    menuItemId ? menuItems.find(item => item.id == menuItemId).description : ""
+                    formDefault ? formDefault.name : ""
                 }
             />
         </label>
@@ -132,7 +116,7 @@ function MenuPage ({restaurants}) {
                 name="price" 
                 value={editFormInput.price}
                 defaultValue={
-                    menuItemId ? menuItems.find(item => item.id == menuItemId).price : ""
+                    formDefault ? formDefault.price : ""
                 }
             />
         </label>
@@ -144,7 +128,7 @@ function MenuPage ({restaurants}) {
                 name="image_url" 
                 value={editFormInput.image_url}
                 defaultValue={
-                    menuItemId ? menuItems.find(item => item.id == menuItemId).image_url : ""
+                    formDefault ? formDefault.image_url : ""
                 }
             />
         </label>
@@ -157,7 +141,7 @@ function MenuPage ({restaurants}) {
 
     function handleNewFormInputs (e) {
         const input = e.target.value
-        setFormInput({...formInput, [e.target.name]: input})
+        setFormInput({...formInput, [e.target.name]: input, menu_id:restaurantId, restaurant_id:restaurantId})
         console.log(formInput)
     }
 
@@ -274,10 +258,9 @@ function MenuPage ({restaurants}) {
 
     return(
         <div>
-
             <div>
                 <button className="button" id="add-new" onClick={showNewItemForm}>
-                    Add New Menu Item
+                    {showForm ? "Cancel" : "Add New Menu Item"}
                 </button>
                 {showForm ? newForm : null}
             </div>
