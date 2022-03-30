@@ -21,7 +21,7 @@ class MenuItemsController < ApplicationController
       def update  
         menu_item = MenuItem.find(params[:id])
         menu_item.update(menu_item_params)
-        render json: menu_item, status: :updated
+        render json: menu_item, status: 200
       end
     
       def destroy   

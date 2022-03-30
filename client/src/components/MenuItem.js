@@ -1,7 +1,7 @@
 
 import { useState } from "react"
 
-function MenuItem ({item, handleEdit, showEditForm, form, handleDeleteItem, onAdd}) {
+function MenuItem ({menuItemId, item, handleEdit, showEditForm, editForm, handleDeleteItem, onAdd}) {
     const {name, description, price, image_url, id} = item
     
     function handleDelete (e) {
@@ -19,17 +19,21 @@ function MenuItem ({item, handleEdit, showEditForm, form, handleDeleteItem, onAd
     return (
         <div>
             <div className="menu-item-card">
-                <p>{name}</p> 
+                {showEditForm && id == menuItemId ? 
+                null :
+                <div>
+                <p>{name}</p>
                 <p>{description}</p> 
-                <p>${price}</p> 
+                <p>${price}</p>
+                </div>}
                 <img className="food-img" src={image_url} alt={name}></img> 
                 <div className="edit-item-div">
-                    <button id={id} className ="button" onClick={handleEdit}> Edit </button>
+                    <button id={id} className ="button" onClick={handleEdit}> {showEditForm ? "Cancel" : "Edit"} </button>
                     <button id={id} className ="button" onClick={handleDelete}> Delete </button>
                     <button onClick={() => onAdd(item)}> Add To Cart </button>
                 </div>
-                {showEditForm ? form : null}
             </div> 
+            
         </div>
     )
 

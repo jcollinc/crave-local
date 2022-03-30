@@ -22,14 +22,14 @@ function MenuPage ({restaurants}) {
             setRestaurant(currentRestaurant)
             setMenuItems(currentRestaurant.menu_items)
         } 
-    }, [restaurants, restaurantId, setRestaurant])
+    }, [restaurants, restaurantId, setRestaurant, menuItemId])
 
     function showNewItemForm() {
         setShowForm(!showForm)
         setShowEditForm(false)
     }
 
-    const form = 
+    const newForm = 
     <form 
         className="form"  
         onSubmit = {handleNewFormSubmit}
@@ -95,13 +95,67 @@ function MenuPage ({restaurants}) {
         />
     </form>
 
-    function handleNewFormInputs (e) {
-        const input = e.target.value
-        setFormInput({...formInput, [e.target.name]: input})
-        console.log(formInput)
-    }
+    const editForm = 
+    <form
+        className="form"  
+        onSubmit = {handleEditFormSubmit}
+    >
+        <label>
+            Name:
+            <input 
+                onChange={handleEditFormInputs} 
+                type="text" 
+                name="name"
+                value={editFormInput.name}
+                defaultValue={
+                    menuItemId ? menuItems.find(item => item.id == menuItemId).name : ""
+                }
+            />
+        </label>
+        <label>
+            Description:
+            <input 
+                onChange={handleEditFormInputs} 
+                type="text" 
+                name="description" 
+                value={editFormInput.description}
+                defaultValue={
+                    menuItemId ? menuItems.find(item => item.id == menuItemId).description : ""
+                }
+            />
+        </label>
+        <label>
+            Price:
+            <input 
+                onChange={handleEditFormInputs} 
+                type="text" 
+                name="price" 
+                value={editFormInput.price}
+                defaultValue={
+                    menuItemId ? menuItems.find(item => item.id == menuItemId).price : ""
+                }
+            />
+        </label>
+        <label>
+            Image URL:
+            <input 
+                onChange={handleEditFormInputs} 
+                type="text" 
+                name="image_url" 
+                value={editFormInput.image_url}
+                defaultValue={
+                    menuItemId ? menuItems.find(item => item.id == menuItemId).image_url : ""
+                }
+            />
+        </label>
+        <input 
+            className="button" 
+            type="submit" 
+            value="Save" 
+        />
+    </form>
 
-    function handleEditFormInputs (e) {
+    function handleNewFormInputs (e) {
         const input = e.target.value
         setFormInput({...formInput, [e.target.name]: input})
         console.log(formInput)
@@ -126,24 +180,45 @@ function MenuPage ({restaurants}) {
                 }
                 else {window.alert("Unauthorized")}
             })
+
             setShowForm(false)
         }
+    }
+
+    function handleEditFormInputs (e) {
+        const input = e.target.value
+        setEditFormInput({...editFormInput, [e.target.name]: input})
+        console.log(editFormInput)
+    }
+
+    function handleEdit (e) {
+        setShowEditForm(!showEditForm)
+        setShowForm(false)
+        setMenuItemId(e.target.id)
+        console.log(menuItemId)
     }
 
     function handleEditFormSubmit (e) {
         e.preventDefault()
 
         if (showEditForm) {
-            fetch(`/menu_items/${e.target.id}`, { 
+            fetch(`/menu_items/${menuItemId}`, { 
                 method: "PATCH",
                 headers: {"Content-Type": "application/json"},
                 body: JSON.stringify(editFormInput)
             })
             .then(r => r.json())
-            .then(() => {
-                setMenuItems([...menuItems]) 
+            .then(newItem => {
+                const updatedItems = menuItems.map((item) => {
+                    if (item.id === newItem.id) {
+                      return newItem;
+                    } else {
+                      return item;
+                    }
+                  })
+                setMenuItems(updatedItems)
+                setShowEditForm(false)
             })
-            setShowEditForm(false)
         }
     }
     
@@ -152,15 +227,9 @@ function MenuPage ({restaurants}) {
         setMenuItems(updatedItems)
     }
 
-    function handleEdit (e) {
-        setShowEditForm(!showEditForm)
-        setShowForm(false)
-        setMenuItemId(e.target.id)
-        console.log(e.target.id)
-    }
-
     let singleMenuItem = menuItems?.map((item) => (
-            <div key={item.id}> 
+            <div key={item.id} className="menu-item-card"> 
+                {showEditForm && item.id == menuItemId ? editForm : null}
                 <MenuItem 
                     item={item} 
                     setMenuItems={setMenuItems}
@@ -169,8 +238,9 @@ function MenuPage ({restaurants}) {
                     handleEdit={handleEdit}
                     showEditForm={showEditForm}
                     setMenuItemId={setMenuItemId}
-                    form={form}
+                    editForm={editForm}
                     onAdd={onAdd}
+                    menuItemId={menuItemId}
                 />
             </div>
     ))
@@ -209,7 +279,7 @@ function MenuPage ({restaurants}) {
                 <button className="button" id="add-new" onClick={showNewItemForm}>
                     Add New Menu Item
                 </button>
-                {showForm ? form : null}
+                {showForm ? newForm : null}
             </div>
             <div>
                 <div>{singleMenuItem}</div> 
