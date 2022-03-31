@@ -22,12 +22,14 @@ function MenuPage ({restaurants}) {
             setRestaurant(currentRestaurant)
             setMenuItems(currentRestaurant.menu_items)
         } 
-    }, [restaurants, restaurantId, setRestaurant, menuItemId])
+    }, [restaurants, restaurantId, setRestaurant])
 
     function showNewItemForm() {
         setShowForm(!showForm)
         setShowEditForm(false)
     }
+
+    // Form for creating a new menu item
 
     const newForm = 
     <form 
@@ -77,7 +79,9 @@ function MenuPage ({restaurants}) {
         />
     </form>
 
-    let formDefault = menuItems.find(item => item.id == menuItemId)
+    // Form for updating existing menu items
+
+    let itemToUpdate = menuItems.find(item => item.id == menuItemId)
 
     const editForm = 
     <form
@@ -92,7 +96,7 @@ function MenuPage ({restaurants}) {
                 name="name"
                 value={editFormInput.name}
                 defaultValue={
-                    formDefault ? formDefault.name : ""
+                    itemToUpdate ? itemToUpdate.name : ""
                 }
             />
         </label>
@@ -104,7 +108,7 @@ function MenuPage ({restaurants}) {
                 name="description" 
                 value={editFormInput.description}
                 defaultValue={
-                    formDefault ? formDefault.name : ""
+                    itemToUpdate ? itemToUpdate.description : ""
                 }
             />
         </label>
@@ -116,7 +120,7 @@ function MenuPage ({restaurants}) {
                 name="price" 
                 value={editFormInput.price}
                 defaultValue={
-                    formDefault ? formDefault.price : ""
+                    itemToUpdate ? itemToUpdate.price : ""
                 }
             />
         </label>
@@ -128,7 +132,7 @@ function MenuPage ({restaurants}) {
                 name="image_url" 
                 value={editFormInput.image_url}
                 defaultValue={
-                    formDefault ? formDefault.image_url : ""
+                    itemToUpdate ? itemToUpdate.image_url : ""
                 }
             />
         </label>
@@ -178,14 +182,16 @@ function MenuPage ({restaurants}) {
     function handleEdit (e) {
         setShowEditForm(!showEditForm)
         setShowForm(false)
-        setMenuItemId(e.target.id)
-        console.log(menuItemId)
+        setMenuItemId(null)
+        setMenuItemId(e)
     }
 
     function handleEditFormSubmit (e) {
         e.preventDefault()
 
-        if (showEditForm) {
+        if (showEditForm && itemToUpdate.id == menuItemId) {
+            console.log(itemToUpdate.id)
+            console.log(menuItemId)
             fetch(`/menu_items/${menuItemId}`, { 
                 method: "PATCH",
                 headers: {"Content-Type": "application/json"},
@@ -195,12 +201,14 @@ function MenuPage ({restaurants}) {
             .then(newItem => {
                 const updatedItems = menuItems.map((item) => {
                     if (item.id === newItem.id) {
+                      console.log(newItem)
                       return newItem;
                     } else {
                       return item;
                     }
                   })
                 setMenuItems(updatedItems)
+                setEditFormInput({})
                 setShowEditForm(false)
             })
         }
@@ -211,7 +219,8 @@ function MenuPage ({restaurants}) {
         setMenuItems(updatedItems)
     }
 
-    let singleMenuItem = menuItems?.map((item) => (
+    let singleMenuItem = menuItems?.map(item => (
+
             <div key={item.id} className="menu-item-card"> 
                 {showEditForm && item.id == menuItemId ? editForm : null}
                 <MenuItem 

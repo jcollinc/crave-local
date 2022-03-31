@@ -1,7 +1,7 @@
 
 import { useState } from "react"
 
-function MenuItem ({menuItemId, item, handleEdit, showEditForm, editForm, handleDeleteItem, onAdd}) {
+function MenuItem ({setMenuItemId, menuItemId, item, handleEdit, showEditForm, handleDeleteItem, onAdd}) {
     const {name, description, price, image_url, id} = item
     
     function handleDelete (e) {
@@ -16,6 +16,12 @@ function MenuItem ({menuItemId, item, handleEdit, showEditForm, editForm, handle
         })
     }
 
+    function callHandleEdit(e) {
+        setMenuItemId(e.target.id)
+        handleEdit(e.target.id)
+    }
+
+
     return (
         <div>
             <div className="menu-item-card">
@@ -28,7 +34,7 @@ function MenuItem ({menuItemId, item, handleEdit, showEditForm, editForm, handle
                 </div>}
                 <img className="food-img" src={image_url} alt={name}></img> 
                 <div className="edit-item-div">
-                    <button id={id} className ="button" onClick={handleEdit}> Edit </button>
+                    <button id={id} className ="button" onClick={(e) => callHandleEdit(e)}> Edit </button>
                     <button id={id} className ="button" onClick={handleDelete}> Delete </button>
                     <button onClick={() => onAdd(item)}> Add To Cart </button>
                 </div>

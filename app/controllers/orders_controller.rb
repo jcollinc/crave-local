@@ -18,6 +18,7 @@ class OrdersController < ApplicationController
     order = Order.find(params[:id])
     order.update(order_params)
     render json: order, status: 200
+    
   end
 
   def destroy   
