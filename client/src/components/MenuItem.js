@@ -28,15 +28,15 @@ function MenuItem ({setMenuItemId, menuItemId, item, handleEdit, showEditForm, h
                 {showEditForm && id == menuItemId ? 
                 null :
                 <div>
-                <p>{name}</p>
+                <h3>{name}</h3>
                 <p>{description}</p> 
                 <p>${price}</p>
                 </div>}
                 <img className="food-img" src={image_url} alt={name}></img> 
                 <div className="edit-item-div">
                     <button id={id} className ="button" onClick={(e) => callHandleEdit(e)}> Edit </button>
+                    <button className="button" onClick={() => onAdd(item)}> Add To Cart </button>
                     <button id={id} className ="button" onClick={handleDelete}> Delete </button>
-                    <button onClick={() => onAdd(item)}> Add To Cart </button>
                 </div>
             </div> 
             

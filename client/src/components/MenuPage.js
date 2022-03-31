@@ -274,7 +274,7 @@ function MenuPage ({restaurants}) {
                 {showForm ? newForm : null}
             </div>
             <div>
-                <div>{singleMenuItem}</div> 
+                <div className="menu-item-card-holder">{singleMenuItem}</div> 
             {cartItems.length > 0 ? <ShoppingCart 
                 cartItems={cartItems}
                 onAdd={onAdd}

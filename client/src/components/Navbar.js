@@ -41,12 +41,12 @@ function Navbar( { currentUser, setCurrentUser }) {
         <NavLink to="/login" className="nav-link">  
           <h2 className="navbar-item">Login</h2>
         </NavLink>}
-        <h2 
+        {currentUser ? <h2 
           className="navbar-item"
           onClick={handleLogout}
         >
           Logout
-        </h2>
+        </h2> : null}
       </div>
     </div>
   )

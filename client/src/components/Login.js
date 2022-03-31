@@ -20,22 +20,26 @@ function Login({ currentUser, setCurrentUser }) {
     })
       .then(r => r.json())
       .then(data => {
-        if (data.error) {setError(data.error)}
+        if (data.error) {
+          setError(data.error)
+          e.target.className="shake"
+          var id = setInterval( function() {e.target.className="login-form"}, 500)
+        }
         else {
           setError(null)
           console.log("Login Success")
           setCurrentUser(data)
           history.push("/restaurants")
         }
-        if (currentUser) {console.log(currentUser.name)}
       }) 
   }
+
   
   return (
     <div>
       <div className="login-container">
         <div className="login-box">
-          <form onSubmit={handleLogin}>
+          <form onSubmit={handleLogin} className="login-form">
             <div className="login-input-div">
             <label>
                 <input

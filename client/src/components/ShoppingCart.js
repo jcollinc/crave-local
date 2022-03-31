@@ -19,7 +19,6 @@ function ShoppingCart ({ cartItems, onAdd, onRemove, menuItems}) {
          }
          console.log(newOrder)
          console.log(cartItems)
-        
     }
 
     return (

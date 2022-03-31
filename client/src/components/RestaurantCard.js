@@ -7,11 +7,13 @@ function RestaurantCard ({restaurant}) {
 
     return (
         <>
-            <Link to={`/restaurants/${id}`}>
-                <div> {name} </div>
-                <div> {description} </div>
-                <img className="food-img" src={image_url} alt={name}></img>
-            </Link> 
+            <div className="resto-card-holder">
+                <Link to={`/restaurants/${id}`}>
+                    <h2 className="resto-name"> {name} </h2>
+                    <div> {description} </div>
+                    <img className="food-img" src={image_url} alt={name}></img>
+                </Link> 
+            </div> 
         </>
     )
 }
