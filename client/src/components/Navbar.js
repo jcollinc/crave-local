@@ -47,6 +47,11 @@ function Navbar( { currentUser, setCurrentUser }) {
         >
           Logout
         </h2> : null}
+        {currentUser ? 
+        <NavLink to="/orders" className="nav-link">  
+          <h2 className="navbar-item">See Orders</h2>
+        </NavLink> : null  
+      }
       </div>
     </div>
   )

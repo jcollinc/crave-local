@@ -179,6 +179,7 @@
   height: 400px;
   width: 400px;
   object-fit: cover;
+  border-radius: 1em;
 }
 
 .display-card {
@@ -275,3 +276,19 @@
   text-align: center;
 }
 
+.order-card-container {
+  background-color: rgb(250, 224, 156);
+  text-align: center;
+  border-radius: 01em;
+  width: 700px;
+  font-weight: bold;
+  color: rgba(91, 85, 81, 0.541);
+}
+
+.orders-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}

@@ -6,6 +6,7 @@ import '../styles/App.css';
 import RestaurantFeed from './RestaurantFeed';
 import MenuPage from "./MenuPage";
 import Navbar from "./Navbar"
+import Orders from "./Orders"
 import { useEffect, useState } from "react";
 
 
@@ -73,9 +74,9 @@ function App() {
                 restaurant={restaurant}
               />
           </Route>
-            {/* <Route exact path="/shoppingcart">
-                  <ShoppingCart />
-            </Route> */}
+          <Route exact path="/orders">
+                  <Orders />
+          </Route>
       </Switch>
     </div>
   );
