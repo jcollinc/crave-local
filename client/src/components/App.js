@@ -30,8 +30,9 @@ function App() {
     .then(setMenuItems)
   }, [])
 
-  console.log(menuItems)
+  // console.log(menuItems)
 
+  console.log(currentUser)
 
   return (
     <div className="App-container">
