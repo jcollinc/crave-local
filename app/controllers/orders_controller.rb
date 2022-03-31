@@ -29,7 +29,7 @@ class OrdersController < ApplicationController
   private
 
   def order_params
-    params.permit(:user_id, :restaurant_id, :total, :items)
+    params.permit(:user_id, :restaurant_id, :total, :items, :order)
   end
   
 end
