@@ -5,7 +5,7 @@ import MenuItem from "./MenuItem"
 import ShoppingCart from "./ShoppingCart"
 
 
-function MenuPage ({restaurants}) {
+function MenuPage ({restaurants, currentUser}) {
     const {restaurantId} = useParams()
     const [menuItems, setMenuItems] = useState([])
     const [showForm, setShowForm] = useState(false)
@@ -276,6 +276,8 @@ function MenuPage ({restaurants}) {
             <div>
                 <div className="display-card-holder">{singleMenuItem}</div> 
             {cartItems.length > 0 ? <ShoppingCart 
+                currentUser={currentUser} 
+                restaurantId={restaurantId}
                 cartItems={cartItems}
                 onAdd={onAdd}
                 onRemove={onRemove} 

@@ -1,24 +1,29 @@
 
-function ShoppingCart ({ cartItems, onAdd, onRemove, menuItems}) {
+function ShoppingCart ({ cartItems, onAdd, onRemove, menuItems, currentUser, restaurantId}) {
     //struggling with delivery fee, need item we clicked on or restaurant deliv fee from menuItems
 
     const allItemsPrice = cartItems.reduce((a, c) => a + c.qty * c.price, 0)
     const taxPrice = allItemsPrice * .08
     const totalPrice = allItemsPrice + taxPrice 
 
-    //function to post order to orders 
-    //think i need qty too 
 
     function handleOrderSubmit () {
         window.alert('Order Submitted')
         let cartItemsString = cartItems.map((item) => item.name +" x"+ item.qty).join(", ")
-    
         let newOrder = { 
-            items: cartItemsString, 
+            user_id: currentUser.id,
+            restaurant_id: restaurantId,
             total: totalPrice,
+            items: cartItemsString, 
          }
-         console.log(newOrder)
-         console.log(cartItems)
+         
+         fetch("/orders", {
+             method: "POST",
+             headers: {"Content-Type": "application/json"},
+             body: JSON.stringify(newOrder)
+         })
+         .then( r => r.json())
+         .then(newPostedOrder => console.log(newPostedOrder))
     }
 
     return (
@@ -70,7 +75,7 @@ function ShoppingCart ({ cartItems, onAdd, onRemove, menuItems}) {
                 <hr />
                 <div className="row">
                 <button onClick={handleOrderSubmit}>
-                    Checkout
+                    Submit Order
                 </button>
                 </div>
             </>

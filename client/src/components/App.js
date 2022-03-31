@@ -67,6 +67,7 @@ function App() {
           </Route>
           <Route exact path="/restaurants/:restaurantId">
               <MenuPage 
+                currentUser={currentUser}
                 restaurants={restaurantsData}
                 setRestaurant={setRestaurant}
                 restaurant={restaurant}
