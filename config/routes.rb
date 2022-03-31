@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   resources :menu_items
   resources :menus, only: [:index] 
   resources :restaurants, only: [:index, :show]
+  get "/restaurants/:id/coords", to: "restaurants#get_coordinates"
   post "/signup", to: "users#create"
   post "/login", to: "sessions#create"
   delete "/logout", to: "sessions#destroy"

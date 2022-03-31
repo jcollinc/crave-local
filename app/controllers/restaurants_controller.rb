@@ -8,6 +8,11 @@ class RestaurantsController < ApplicationController
     restaurant = Restaurant.find(params[:id])
     render json: restaurant    
   end
+
+  def get_coordinates
+    restaurant = Restaurant.find(params[:id])
+    render json: restaurant, serializer: RestaurantCoordinateSerializer
+  end
   
   
   # def create 

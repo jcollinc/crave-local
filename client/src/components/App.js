@@ -17,6 +17,7 @@ function App() {
   const [currentUser, setCurrentUser] = useState(null)
 
 
+
   useEffect(() => {
     fetch("/restaurants")
   .then((r) => r.json())
