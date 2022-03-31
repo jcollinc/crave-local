@@ -24,7 +24,7 @@ function MenuItem ({setMenuItemId, menuItemId, item, handleEdit, showEditForm, h
 
     return (
         <div>
-            <div className="menu-item-card">
+            <div className="display-card">
                 {showEditForm && id == menuItemId ? 
                 null :
                 <div>

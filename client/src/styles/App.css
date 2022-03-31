@@ -43,6 +43,11 @@
   text-decoration: none;
 }
 
+.resto-nav-link {
+  color: rgb(255, 94, 0);
+  text-decoration: none;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -176,7 +181,7 @@
   object-fit: cover;
 }
 
-.menu-item-card {
+.display-card {
   display: flex;
   flex-direction: column;
   text-align: center;
@@ -184,7 +189,7 @@
   padding-top: 40px;
 }
 
-.menu-item-card-holder {
+.display-card-holder {
   display: flex;
   flex-direction: column;
   text-align: center;
@@ -192,13 +197,15 @@
   padding-bottom: 100px;
 }
 
-.menu-item-card .button {
+.display-card .button {
   margin-top: 15px;
   width: 180px;
 }
 
-.menu-item-card > * {
+.display-card > * {
   margin: 0px;
+  color: rgb(255, 94, 0);
+  text-decoration: none;
 }
 
 .edit-item-div {
@@ -206,13 +213,18 @@
   justify-content: space-between;
 }
 
-.menu-item-card .edit-item-div .button:first-of-type {
+#view-map {
+  margin-top: 15px;
+  width: 180px;
+}
+
+.display-card .edit-item-div .button:first-of-type {
   width: 70px;
   margin-left: 10px;
   margin-right: 10px;
 }
 
-.menu-item-card .edit-item-div .button:last-of-type {
+.display-card .edit-item-div .button:last-of-type {
   width: 70px;
   margin-left: 10px;
   margin-right: 10px;
@@ -220,7 +232,19 @@
 }
 
 #add-new {
-  width: 150px;
+  max-width: 150px;
+  position: absolute;
+}
+
+#add-new-div {
+  display:flex;
+  justify-content: center;
+  max-width: 10%;
+}
+
+#add-new-div form {
+  position: absolute;
+  margin-top: 60px;
 }
 
 .form {
@@ -251,22 +275,3 @@
   text-align: center;
 }
 
-.resto-card-holder {
-  display: flex;
-  width: auto;
-  flex-direction: column;
-  align-items: center;
-  padding-bottom: 60px;
-}
-
-.resto-card-holder > * {
-  display: flex;
-  flex-direction: column;
-  text-decoration: none;
-  color: black;
-}
-
-.resto-name {
-  color: rgb(0, 0, 0);
-  text-decoration: none;
-}

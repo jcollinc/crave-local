@@ -221,7 +221,7 @@ function MenuPage ({restaurants}) {
 
     let singleMenuItem = menuItems?.map(item => (
 
-            <div key={item.id} className="menu-item-card"> 
+            <div key={item.id} className="display-card"> 
                 {showEditForm && item.id == menuItemId ? editForm : null}
                 <MenuItem 
                     item={item} 
@@ -267,14 +267,14 @@ function MenuPage ({restaurants}) {
 
     return(
         <div>
-            <div>
+            <div id="add-new-div">
                 <button className="button" id="add-new" onClick={showNewItemForm}>
                     {showForm ? "Cancel" : "Add New Menu Item"}
                 </button>
                 {showForm ? newForm : null}
             </div>
             <div>
-                <div className="menu-item-card-holder">{singleMenuItem}</div> 
+                <div className="display-card-holder">{singleMenuItem}</div> 
             {cartItems.length > 0 ? <ShoppingCart 
                 cartItems={cartItems}
                 onAdd={onAdd}

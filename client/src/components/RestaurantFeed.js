@@ -30,10 +30,18 @@ function RestaurantFeed () {
                         setSearch={setSearch}
                     />
                     {filteredDisplay?.map((restaurant) => (
-                        <RestaurantCard 
-                            key={restaurant.id} 
-                            restaurant={restaurant}
-                        />
+                        <div className="display-card-holder">
+                            <RestaurantCard 
+                                    key={restaurant.id} 
+                                    restaurant={restaurant}
+                                />
+                            <div className="edit-item-div">
+                                <button className="button" id="view-map">
+                                    View on Map
+                                </button>
+                            </div>
+                        </div>
+                        
                     ))}
                 </div>
             </>
