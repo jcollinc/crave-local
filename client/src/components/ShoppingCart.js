@@ -7,18 +7,24 @@ function ShoppingCart ({ cartItems, onAdd, onRemove, menuItems}) {
     const totalPrice = allItemsPrice + taxPrice 
 
     //function to post order to orders 
-    //think i need qty too 
 
     function handleOrderSubmit () {
         window.alert('Order Submitted')
         let cartItemsString = cartItems.map((item) => item.name +" x"+ item.qty).join(", ")
-    
+        console.log(cartItemsString)
         let newOrder = { 
-            items: cartItemsString, 
             total: totalPrice,
+            items: cartItemsString, 
          }
          console.log(newOrder)
-         console.log(cartItems)
+         
+         fetch("/orders", {
+             method: "POST",
+             headers: {"Content-Type": "application/json"},
+             body: JSON.stringify(newOrder)
+         })
+         .then( r => r.json())
+         .then(newPostedOrder => console.log(newPostedOrder))
         
     }
 
