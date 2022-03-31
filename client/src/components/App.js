@@ -76,7 +76,7 @@ function App() {
               />
           </Route>
           <Route exact path="/orders">
-                  <Orders />
+                  <Orders currentUser={currentUser}/>
           </Route>
       </Switch>
     </div>

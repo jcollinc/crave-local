@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react"
 import OrderCard from "./OrderCard"
 
-function Orders () {
+function Orders ({currentUser}) {
     const [orders, setOrders] = useState([])
 
+    //fetch order if restaurant name matches user name
     useEffect(() => {
         fetch("/orders")
         .then(r => r.json())
@@ -12,7 +13,12 @@ function Orders () {
 
     console.log(orders)
 
-    const SingleOrder = orders.map((order) => <OrderCard order={order}/>) 
+    const SingleOrder = orders.map((order) => {
+        if (order.restaurant.name === currentUser.name)
+            return (<OrderCard order={order}/>)
+        else 
+         return (null)
+    }) 
 
     return (
         <div className="orders-container">

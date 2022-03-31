@@ -14,4 +14,8 @@ class ApplicationController < ActionController::API
     end
   end
 
+  # def see_orders_auth
+
+  # end
+
 end
