@@ -39,7 +39,9 @@ function RestaurantFeed () {
         return(
             <>
                 <div>
-                    {showMap ? <SimpleMap coords={coords}/> : null}
+                    <div className="map-div">
+                        {showMap ? <SimpleMap coords={coords}/> : null}
+                    </div>
                     <div id="filter-map-toggle">
                     <Filter 
                         search={search}

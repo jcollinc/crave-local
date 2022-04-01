@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-function NewForm({restaurantId, showForm, setMenuItems, menuItems, setShowForm}) {
+function NewForm({setError, error, restaurantId, showForm, setMenuItems, menuItems, setShowForm}) {
 
   const [formInput, setFormInput] = useState({})
 
@@ -20,17 +20,16 @@ function NewForm({restaurantId, showForm, setMenuItems, menuItems, setShowForm})
               headers: {"Content-Type": "application/json"},
               body: JSON.stringify(formInput)
           })
-          .then(r => {
+          .then(r => r.json())
+          .then( r => {
               if(r.ok){
-                  r.json()
-                  .then(newItem => {
-                      setMenuItems([...menuItems, newItem]) 
-                  })    
+                setMenuItems([...menuItems, r]) 
+                setShowForm(false)
+              } 
+              else {
+                setError(r.errors)   
               }
-              else {window.alert("Unauthorized")}
           })
-
-          setShowForm(false)
       }
   }
 
@@ -81,6 +80,7 @@ function NewForm({restaurantId, showForm, setMenuItems, menuItems, setShowForm})
             type="submit" 
             value="Submit" 
         />
+        <p className="error">{error ? error : null}</p>
     </form>
   )
 }

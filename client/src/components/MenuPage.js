@@ -7,7 +7,7 @@ import NewForm from "./NewForm"
 import EditForm from "./EditForm"
 
 
-function MenuPage ({restaurants, currentUser}) {
+function MenuPage ({restaurants, currentUser, error, setError}) {
     const {restaurantId} = useParams()
     const [menuItems, setMenuItems] = useState([])
     const [showForm, setShowForm] = useState(false)
@@ -28,6 +28,7 @@ function MenuPage ({restaurants, currentUser}) {
     function showNewItemForm() {
         setShowForm(!showForm)
         setShowEditForm(false)
+        setError(false)
     }
 
     function handleEdit (id) {
@@ -36,6 +37,7 @@ function MenuPage ({restaurants, currentUser}) {
         setShowForm(false)
         setMenuItemId(null)
         setMenuItemId(id)
+        setError(false)
     }
 
     function handleDeleteItem(id) {
@@ -54,6 +56,8 @@ function MenuPage ({restaurants, currentUser}) {
                     showEditForm={showEditForm}
                     setMenuItems={setMenuItems}
                     setShowEditForm={setShowEditForm}
+                    error={error}
+                    setError={setError}
                 /> : null}
                 <MenuItem 
                     item={item} 
@@ -110,6 +114,8 @@ function MenuPage ({restaurants, currentUser}) {
                     setMenuItems={setMenuItems}
                     menuItems={menuItems}
                     setShowForm={setShowForm}
+                    error={error}
+                    setError={setError}
                 /> : null}
             </div>
             <div className="menu-flexbox">

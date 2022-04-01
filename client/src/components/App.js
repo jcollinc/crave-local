@@ -15,6 +15,7 @@ function App() {
   const [restaurant, setRestaurant] = useState(null)
   const [menuItems, setMenuItems] = useState([])
   const [currentUser, setCurrentUser] = useState()
+  const [error, setError] = useState(null)
 
   useEffect (() => {
     fetch("/current_user")
@@ -66,7 +67,8 @@ function App() {
           <Route exact path="/login">
             <Login 
               setCurrentUser={setCurrentUser}
-              currentUser={currentUser}
+              setError={setError}
+              error={error}
             />
           </Route>
           <Route exact path="/restaurants">
@@ -78,6 +80,8 @@ function App() {
                 restaurants={restaurantsData}
                 setRestaurant={setRestaurant}
                 restaurant={restaurant}
+                error={error}
+                setError={setError}
               />
           </Route>
           <Route exact path="/orders">

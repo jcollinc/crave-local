@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-function EditForm({menuItems, menuItemId, restaurantId, showEditForm, setMenuItems, setShowEditForm}) {
+function EditForm({error, setError, menuItems, menuItemId, restaurantId, showEditForm, setMenuItems, setShowEditForm}) {
 
   const [editFormInput, setEditFormInput] = useState({})
   let itemToUpdate = menuItems.find(item => item.id == menuItemId)
@@ -24,11 +24,14 @@ function EditForm({menuItems, menuItemId, restaurantId, showEditForm, setMenuIte
             body: JSON.stringify(editFormInput)
         })
         .then(r => r.json())
-        .then(newItem => {
+        .then(r => { 
+          if (r.errors) {
+            setError(r.errors)
+          }
+          else {
             const updatedItems = menuItems.map((item) => {
-                if (item.id === newItem.id) {
-                  console.log(newItem)
-                  return newItem;
+                if (item.id === r.id) {
+                  return r;
                 } else {
                   return item;
                 }
@@ -36,6 +39,8 @@ function EditForm({menuItems, menuItemId, restaurantId, showEditForm, setMenuIte
             setMenuItems(updatedItems)
             setEditFormInput({})
             setShowEditForm(false)
+            setError(null)
+          }  
         })
     }
   }
@@ -99,6 +104,7 @@ function EditForm({menuItems, menuItemId, restaurantId, showEditForm, setMenuIte
             type="submit" 
             value="Save" 
         />
+        <p className="error">{error ? error : null}</p>
     </form>
   )
 }

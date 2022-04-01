@@ -1,6 +1,5 @@
 class OrdersController < ApplicationController
   
-  before_action :check_restaurant, only: [:index, :show]
 
   def index  
     render json: Order.all

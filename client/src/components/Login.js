@@ -1,11 +1,11 @@
 import React, {useState} from "react";
 import { useHistory } from "react-router-dom";
 
-function Login({ currentUser, setCurrentUser }) {
+function Login({ error, setError, setCurrentUser }) {
   
   const [user, setUser] = useState("")  
   const [password, setPassword] = useState("")
-  const [error, setError] = useState(null)
+
  
 
   let history = useHistory();

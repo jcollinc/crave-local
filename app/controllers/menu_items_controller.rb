@@ -1,6 +1,5 @@
 class MenuItemsController < ApplicationController
-  # before_action :authorize, only: [:create, :update, :destroy]
-  before_action :check_restaurant, only: [:create, :update, :destroy]
+ 
 
 
       def index  
@@ -14,13 +13,13 @@ class MenuItemsController < ApplicationController
     
       # authenticate if restaurant
       def create 
-        menu_item = MenuItem.create(menu_item_params)
+        menu_item = MenuItem.create!(menu_item_params)
         render json: menu_item, status: :created
       end
     
       def update  
         menu_item = MenuItem.find(params[:id])
-        menu_item.update(menu_item_params)
+        menu_item.update!(menu_item_params)
         render json: menu_item, status: 200
       end
     
