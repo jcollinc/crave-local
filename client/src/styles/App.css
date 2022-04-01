@@ -403,3 +403,63 @@ div.resto-container {
     font-size: 10vw;
   }
 */
+
+.shopping-cart-container {
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(250, 224, 156);
+  border-radius: .7em;
+  float: right;
+  margin-right: 50px;
+  padding: 10px;
+  /* row-gap: 5px; */
+}
+
+.minus-button {
+  background-color: rgb(255, 143, 78);
+  border-radius: 7px;
+  border: 0;
+  box-sizing: border-box;
+  color: #eee;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 17px;
+  height: 20px;
+  text-align: center;
+  width: 7%;
+}
+
+.plus-button {
+  background-color: rgb(255, 143, 78);
+  border-radius: 7px;
+  border: 0;
+  box-sizing: border-box;
+  color: #eee;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 17px;
+  height: 20px;
+  text-align: center;
+  width: 7%;
+}
+
+.submit-button {
+    background-color: rgb(255, 143, 78);
+    border-radius: 12px;
+    border: 0;
+    box-sizing: border-box;
+    color: #eee;
+    cursor: pointer;
+    font-size: 18px;
+    height: 40px;
+    text-align: center;
+    width: 40%;
+}
+
+.shopping-cart-items-container > * {
+  display: flex;
+  flex-direction: column;
+  row-gap: 5px;
+  margin-top: 10px;
+}

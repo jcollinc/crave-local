@@ -28,18 +28,18 @@ function ShoppingCart ({ cartItems, onAdd, onRemove, menuItems, currentUser, res
 
     return (
         
-        <>
+        <div className="shopping-cart-container">
             <h2>Shopping Cart</h2>
-            <div>
+            <div className="shopping-cart-items-container">
                 {cartItems.length === 0 || (!cartItems) ? <div>Cart is empty</div> :
                 cartItems.map((item) => (
                     <div key={item.id} className="row">
-                    <div className="col-2">{item.name}</div>
-                    <div className="col-2">
-                      <button onClick={() => onRemove(item)} className="remove">
+                    <div >
+                    <div><strong>{item.name}</strong></div>
+                      <button className="minus-button" onClick={() => onRemove(item)}>
                         -
                       </button>{' '}
-                      <button onClick={() => onAdd(item)} className="add">
+                      <button className="plus-button" onClick={() => onAdd(item)}>
                         +
                       </button>
                     </div>
@@ -53,35 +53,28 @@ function ShoppingCart ({ cartItems, onAdd, onRemove, menuItems, currentUser, res
                 {cartItems.length !== 0 && (
             <>
                 <hr></hr>
-                <div className="row">
-                <div className="col-2">Items Price</div>
-                <div className="col-1 text-right">${allItemsPrice.toFixed(2)}</div>
+                <div >
+                <div >Items Price</div>
+                <div >${allItemsPrice.toFixed(2)}</div>
                 </div>
-                {/* <div className="row">
-                <div className="col-2">Delivery Fee</div>
-                <div className="col-1 text-right">
-                    ${delivery_fee}
-                </div>
-                </div> */}
-
-                <div className="row">
-                <div className="col-2">
+                <div >
+                <div >
                     <strong>Total Price including tax</strong>
                 </div>
-                <div className="col-1 text-right">
+                <div >
                     <strong>${totalPrice.toFixed(2)}</strong>
                 </div>
                 </div>
                 <hr />
-                <div className="row">
-                <button onClick={handleOrderSubmit}>
+                <div >
+                <button className="submit-button" onClick={handleOrderSubmit}>
                     Submit Order
                 </button>
                 </div>
             </>
         )}
             </div>
-        </>
+        </div>
     )
 }
 

@@ -112,8 +112,7 @@ function MenuPage ({restaurants, currentUser}) {
                     setShowForm={setShowForm}
                 /> : null}
             </div>
-            <div>
-                <div className="display-card-holder">{singleMenuItem}</div> 
+            <div className="menu-flexbox">
             {cartItems.length > 0 ? <ShoppingCart 
                 currentUser={currentUser} 
                 restaurantId={restaurantId}
@@ -121,8 +120,8 @@ function MenuPage ({restaurants, currentUser}) {
                 onAdd={onAdd}
                 onRemove={onRemove} 
             /> : null}
+                <div className="display-card-holder">{singleMenuItem}</div> 
             </div>
-
         </div>
     )
 }
