@@ -6,6 +6,7 @@ import Filter from "./Filter"
 
 function RestaurantFeed () {
     const [restaurants, setRestaurants] = useState([])
+    const [showMap, setShowMap] = useState(false)
     const [search, setSearch] = useState("")
     const [coords, setCoords] = useState({lat: 30.36, lng: -97.78 })
 
@@ -27,17 +28,28 @@ function RestaurantFeed () {
          .then(r => r.json())
          .then(coordinates => {
             setCoords(coordinates)
+            setShowMap(true)
         })
+     }
+
+     function toggleMap () {
+         setShowMap(!showMap)
      }
 
         return(
             <>
                 <div>
-                    <SimpleMap coords={coords}/>
+                    {showMap ? <SimpleMap coords={coords}/> : null}
+                    <div id="filter-map-toggle">
                     <Filter 
                         search={search}
                         setSearch={setSearch}
                     />
+                    <button 
+                        className="button"
+                        onClick={toggleMap}
+                    >{showMap ? "Hide Map" : "Show Map"}</button>
+                    </div>
                     <div className="resto-container">
                         {filteredDisplay?.map((restaurant) => (
                             <div className="resto-card-div" key={restaurant.id} >
