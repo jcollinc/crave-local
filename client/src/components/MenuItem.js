@@ -1,6 +1,6 @@
 
 
-function MenuItem ({currentUser, setMenuItemId, menuItemId, item, handleEdit, showEditForm, handleDeleteItem, onAdd}) {
+function MenuItem ({restaurant, currentUser, setMenuItemId, menuItemId, item, handleEdit, showEditForm, handleDeleteItem, onAdd}) {
     const {name, description, price, image_url, id} = item
     
     function handleDelete (e) {
@@ -32,13 +32,13 @@ function MenuItem ({currentUser, setMenuItemId, menuItemId, item, handleEdit, sh
                 </div>}
                 <img className="food-img" src={image_url} alt={name}></img> 
                 <div className="edit-item-div">
-                    {currentUser && currentUser.isRestaurant ? 
+                    {currentUser && currentUser.isRestaurant && currentUser.name == restaurant.name ? 
                     <button 
                         id={id} 
                         className ="button" 
                         onClick={(e) => callHandleEdit(e)}
                     > Edit </button> : null}
-                    {currentUser && currentUser.isRestaurant ? 
+                    {currentUser && currentUser.isRestaurant && currentUser.name == restaurant.name ? 
                     <button 
                         id={id} 
                         className ="button" 

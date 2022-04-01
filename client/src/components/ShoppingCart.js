@@ -66,10 +66,10 @@ function ShoppingCart ({ cartItems, onAdd, onRemove, menuItems, currentUser, res
                 </div>
                 </div>
                 <hr />
-                <div >
-                <button className="submit-button" onClick={handleOrderSubmit}>
-                    Submit Order
-                </button>
+                <div className="order-submit">
+                    <button className="submit-button" onClick={handleOrderSubmit}>
+                        Submit Order
+                    </button>
                 </div>
             </>
         )}

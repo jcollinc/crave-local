@@ -211,6 +211,11 @@
   align-items: center; 
   margin-left: 50px;
   margin-right: 50px;
+  max-width: 400px;
+}
+
+.order-submit {
+  align-items: center;
 }
 
 div.display-card-holder {
@@ -219,6 +224,7 @@ div.display-card-holder {
   text-align: center;
   align-items: center; 
   padding-bottom: 100px;
+  row-gap: 70px;
 }
 
 div.resto-container {

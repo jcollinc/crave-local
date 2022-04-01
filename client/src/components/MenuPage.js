@@ -21,7 +21,6 @@ function MenuPage ({restaurants, currentUser, error, setError}) {
         if (currentRestaurant) {
             setRestaurant(currentRestaurant)
             setMenuItems(currentRestaurant.menu_items)
-            debugger
         } 
     }, [restaurants, restaurantId, setRestaurant])
 
@@ -61,6 +60,7 @@ function MenuPage ({restaurants, currentUser, error, setError}) {
                 /> : null}
                 <MenuItem 
                     item={item} 
+                    restaurant={restaurant}
                     setMenuItems={setMenuItems}
                     menuItems={menuItems}
                     handleDeleteItem={handleDeleteItem}
