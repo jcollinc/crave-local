@@ -49,17 +49,17 @@ function Navbar( { currentUser, setCurrentUser }) {
         <NavLink to="/login" className="nav-link">  
           <h2 className="navbar-item">Login</h2>
         </NavLink>}
-        {currentUser ? <h2 
+      {currentUser ? 
+        <NavLink to="/orders" className="nav-link">  
+          {currentUser && currentUser.isRestaurant ? <h2 className="navbar-item">See Orders</h2> : null}
+        </NavLink> : null  
+      }
+      {currentUser ? <h2 
           className="navbar-item"
           onClick={handleLogout}
         >
           Logout
         </h2> : null}
-        {currentUser ? 
-        <NavLink to="/orders" className="nav-link">  
-          {currentUser && currentUser.isRestaurant ? <h2 className="navbar-item">See Orders</h2> : null}
-        </NavLink> : null  
-      }
       </div>
     </div>
   )
