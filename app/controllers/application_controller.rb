@@ -1,6 +1,8 @@
 class ApplicationController < ActionController::API
   include ActionController::Cookies
 
+  before_action :authorized_user
+
   private 
 
   def authorize
@@ -14,8 +16,13 @@ class ApplicationController < ActionController::API
     end
   end
 
-  # def see_orders_auth
+  def current_user
+    User.find_by(id:session[:user_id])
+  end
 
-  # end
+  def authorized_user
+    return render json: {error: "Not authorized"} unless current_user
+  end
+
 
 end

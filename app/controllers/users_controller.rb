@@ -12,9 +12,12 @@ class UsersController < ApplicationController
     end
 
     def show
-        user = User.find(session[:user_id])
-        render json: user
+        if current_user 
+            render json: current_user, status: :ok
+        else
+            render json: "You are not currently logged in", status: :unauthorized
       end
+    end
 
     private
 

@@ -145,6 +145,14 @@
   width: 70%;
 }
 
+#filter.login-input  {
+  border-radius: 8px;
+  padding: 4px 0px 0;
+  margin-top: 20px;
+  margin-left: 20px;
+  width: 200px;
+}
+
 .login-input-div {
   height: 50px;
   padding: 20px;
@@ -199,12 +207,39 @@ div.display-card-holder {
   padding-bottom: 100px;
 }
 
-div.display-card-container {
+div.resto-container {
+  display: grid;
+  grid-template-rows: 100%;
+  grid-template-columns: 25% 25% 25% 25%;
+  padding-top: 25px;
+  padding-bottom: 10px;
+}
+
+.resto-card-holder {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+}
+
+.resto-card-div {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 80px;
+}
+
+.resto-card {
+  flex: 0 1 auto;
+  height: 100%;
   text-align: center;
-  align-items: center; 
+}
+
+.resto-img {
+  height: 400px;
+  width: 400px;
+  display: flex;
+  border-radius: 1em;
   justify-content: center;
+  margin-right: auto;
+  margin-left: auto;
 }
 
 .display-card .button {
@@ -221,6 +256,19 @@ div.display-card-container {
 .edit-item-div {
   display: flex;
   justify-content: space-between;
+  width: 100%;
+}
+
+.add-cart-div {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.view-map-div {
+  display: flex;
+  justify-content: center;
+  width: 100%;
 }
 
 #view-map {
@@ -228,17 +276,8 @@ div.display-card-container {
   width: 180px;
 }
 
-.display-card .edit-item-div .button:first-of-type {
-  width: 70px;
-  margin-left: 10px;
-  margin-right: 10px;
-}
-
 .display-card .edit-item-div .button:last-of-type {
-  width: 70px;
-  margin-left: 10px;
-  margin-right: 10px;
-  background: rgb(255, 118, 118);
+  background-color: rgba(255, 103, 98, 0.84);
 }
 
 #add-new {

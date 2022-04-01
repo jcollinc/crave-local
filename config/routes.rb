@@ -7,9 +7,9 @@ Rails.application.routes.draw do
   resources :restaurants, only: [:index, :show]
   get "/restaurants/:id/coords", to: "restaurants#get_coordinates"
   post "/signup", to: "users#create"
-  post "/login", to: "sessions#create"
-  delete "/logout", to: "sessions#destroy"
-  get "/me", to: "users#show"
+  post "/login", to: "sessions#login"
+  delete "/logout", to: "sessions#logout"
+  get "/current_user", to: "users#show"
 
 
   # Routing logic: fallback requests for React Router.

@@ -23,13 +23,13 @@ function Login({ currentUser, setCurrentUser }) {
         if (data.error) {
           setError(data.error)
           e.target.className="shake"
-          var id = setInterval( function() {e.target.className="login-form"}, 500)
+          setInterval( function() {e.target.className="login-form"}, 500)
         }
         else {
           setError(null)
           console.log("Login Success")
-          setCurrentUser(data)
           history.push("/restaurants")
+          setCurrentUser(data)
         }
       }) 
   }

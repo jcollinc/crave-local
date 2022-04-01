@@ -3,15 +3,15 @@ import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import MenuItem from "./MenuItem"
 import ShoppingCart from "./ShoppingCart"
+import NewForm from "./NewForm"
+import EditForm from "./EditForm"
 
 
 function MenuPage ({restaurants, currentUser}) {
     const {restaurantId} = useParams()
     const [menuItems, setMenuItems] = useState([])
     const [showForm, setShowForm] = useState(false)
-    const [formInput, setFormInput] = useState({})
     const [showEditForm, setShowEditForm] = useState(false)
-    const [editFormInput, setEditFormInput] = useState({})
     const [restaurant, setRestaurant] = useState({})
     const [cartItems, setCartItems] = useState([])
     const [menuItemId, setMenuItemId] = useState()
@@ -21,6 +21,7 @@ function MenuPage ({restaurants, currentUser}) {
         if (currentRestaurant) {
             setRestaurant(currentRestaurant)
             setMenuItems(currentRestaurant.menu_items)
+            debugger
         } 
     }, [restaurants, restaurantId, setRestaurant])
 
@@ -29,191 +30,14 @@ function MenuPage ({restaurants, currentUser}) {
         setShowEditForm(false)
     }
 
-    // Form for creating a new menu item
-
-    const newForm = 
-    <form 
-        className="form"  
-        onSubmit = {handleNewFormSubmit}
-    >
-        <label>
-            Name:
-            <input 
-                onChange={handleNewFormInputs} 
-                type="text" 
-                name="name"
-                value={formInput.name}
-            />
-        </label>
-        <label>
-            Description:
-            <input 
-                onChange={handleNewFormInputs} 
-                type="text" 
-                name="description" 
-                value={formInput.description}
-            />
-        </label>
-        <label>
-            Price:
-            <input 
-                onChange={handleNewFormInputs} 
-                type="text" 
-                name="price" 
-                value={formInput.price}
-            />
-        </label>
-        <label>
-            Image URL:
-            <input 
-                onChange={handleNewFormInputs} 
-                type="text" 
-                name="image_url" 
-                value={formInput.image_url}
-            />
-        </label>
-        <input 
-            className="button" 
-            type="submit" 
-            value="Submit" 
-        />
-    </form>
-
-    // Form for updating existing menu items
-
-    let itemToUpdate = menuItems.find(item => item.id == menuItemId)
-
-    const editForm = 
-    <form
-        className="form"  
-        onSubmit = {handleEditFormSubmit}
-    >
-        <label>
-            Name:
-            <input 
-                onChange={handleEditFormInputs} 
-                type="text" 
-                name="name"
-                value={editFormInput.name}
-                defaultValue={
-                    itemToUpdate ? itemToUpdate.name : ""
-                }
-            />
-        </label>
-        <label>
-            Description:
-            <input 
-                onChange={handleEditFormInputs} 
-                type="text" 
-                name="description" 
-                value={editFormInput.description}
-                defaultValue={
-                    itemToUpdate ? itemToUpdate.description : ""
-                }
-            />
-        </label>
-        <label>
-            Price:
-            <input 
-                onChange={handleEditFormInputs} 
-                type="text" 
-                name="price" 
-                value={editFormInput.price}
-                defaultValue={
-                    itemToUpdate ? itemToUpdate.price : ""
-                }
-            />
-        </label>
-        <label>
-            Image URL:
-            <input 
-                onChange={handleEditFormInputs} 
-                type="text" 
-                name="image_url" 
-                value={editFormInput.image_url}
-                defaultValue={
-                    itemToUpdate ? itemToUpdate.image_url : ""
-                }
-            />
-        </label>
-        <input 
-            className="button" 
-            type="submit" 
-            value="Save" 
-        />
-    </form>
-
-    function handleNewFormInputs (e) {
-        const input = e.target.value
-        setFormInput({...formInput, [e.target.name]: input, menu_id:restaurantId, restaurant_id:restaurantId})
-        console.log(formInput)
-    }
-
-    function handleNewFormSubmit (e) {
-        e.preventDefault()
-
-        if (showForm) {
-
-            fetch(`/menu_items`, { 
-                method: "POST",
-                headers: {"Content-Type": "application/json"},
-                body: JSON.stringify(formInput)
-            })
-            .then(r => {
-                if(r.ok){
-                    r.json()
-                    .then(newItem => {
-                        setMenuItems([...menuItems, newItem]) 
-                     })    
-                }
-                else {window.alert("Unauthorized")}
-            })
-
-            setShowForm(false)
-        }
-    }
-
-    function handleEditFormInputs (e) {
-        const input = e.target.value
-        setEditFormInput({...editFormInput, [e.target.name]: input, menu_id:restaurantId, restaurant_id:restaurantId})
-        console.log(editFormInput)
-    }
-
-    function handleEdit (e) {
+    function handleEdit (id) {
         setShowEditForm(!showEditForm)
+        if (showEditForm && id !== menuItemId) {setShowEditForm(true)}
         setShowForm(false)
         setMenuItemId(null)
-        setMenuItemId(e)
+        setMenuItemId(id)
     }
 
-    function handleEditFormSubmit (e) {
-        e.preventDefault()
-
-        if (showEditForm && itemToUpdate.id == menuItemId) {
-            console.log(itemToUpdate.id)
-            console.log(menuItemId)
-            fetch(`/menu_items/${menuItemId}`, { 
-                method: "PATCH",
-                headers: {"Content-Type": "application/json"},
-                body: JSON.stringify(editFormInput)
-            })
-            .then(r => r.json())
-            .then(newItem => {
-                const updatedItems = menuItems.map((item) => {
-                    if (item.id === newItem.id) {
-                      console.log(newItem)
-                      return newItem;
-                    } else {
-                      return item;
-                    }
-                  })
-                setMenuItems(updatedItems)
-                setEditFormInput({})
-                setShowEditForm(false)
-            })
-        }
-    }
-    
     function handleDeleteItem(id) {
         const updatedItems = menuItems.filter(item => item.id !== id)
         setMenuItems(updatedItems)
@@ -222,7 +46,15 @@ function MenuPage ({restaurants, currentUser}) {
     let singleMenuItem = menuItems?.map(item => (
 
             <div key={item.id} className="display-card"> 
-                {showEditForm && item.id == menuItemId ? editForm : null}
+                {showEditForm && item.id == menuItemId ? 
+                <EditForm 
+                    menuItems={menuItems}
+                    menuItemId={menuItemId}
+                    restaurantId={restaurantId}
+                    showEditForm={showEditForm}
+                    setMenuItems={setMenuItems}
+                    setShowEditForm={setShowEditForm}
+                /> : null}
                 <MenuItem 
                     item={item} 
                     setMenuItems={setMenuItems}
@@ -231,9 +63,9 @@ function MenuPage ({restaurants, currentUser}) {
                     handleEdit={handleEdit}
                     showEditForm={showEditForm}
                     setMenuItemId={setMenuItemId}
-                    editForm={editForm}
                     onAdd={onAdd}
                     menuItemId={menuItemId}
+                    currentUser={currentUser}
                 />
             </div>
     ))
@@ -268,10 +100,17 @@ function MenuPage ({restaurants, currentUser}) {
     return(
         <div>
             <div id="add-new-div">
+                {currentUser && currentUser.isRestaurant && currentUser.name == restaurant.name ? 
                 <button className="button" id="add-new" onClick={showNewItemForm}>
                     {showForm ? "Cancel" : "Add New Menu Item"}
-                </button>
-                {showForm ? newForm : null}
+                </button> : null}
+                {showForm ? <NewForm 
+                    restaurantId={restaurantId}
+                    showForm={showForm}
+                    setMenuItems={setMenuItems}
+                    menuItems={menuItems}
+                    setShowForm={setShowForm}
+                /> : null}
             </div>
             <div>
                 <div className="display-card-holder">{singleMenuItem}</div> 

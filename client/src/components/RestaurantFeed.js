@@ -14,8 +14,6 @@ function RestaurantFeed () {
       .then((r) => r.json())
       .then(setRestaurants)
      }, [])
-
-     console.log(restaurants)
     
      const filteredDisplay = restaurants
      .filter((restaurant) => {
@@ -40,14 +38,15 @@ function RestaurantFeed () {
                         search={search}
                         setSearch={setSearch}
                     />
-                    <div className="display-card-container">
+                    <div className="resto-container">
                         {filteredDisplay?.map((restaurant) => (
-                            <div className="display-card-holder">
-                                <RestaurantCard 
-                                        key={restaurant.id} 
+                            <div className="resto-card-div" key={restaurant.id} >
+                                <div className="resto-card-holder">
+                                    <RestaurantCard 
                                         restaurant={restaurant}
                                     />
-                                <div className="edit-item-div">
+                                </div>
+                                <div className="view-map-div">
                                     <button 
                                         className="button" 
                                         id="view-map"

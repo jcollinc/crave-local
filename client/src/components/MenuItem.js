@@ -1,7 +1,6 @@
 
-import { useState } from "react"
 
-function MenuItem ({setMenuItemId, menuItemId, item, handleEdit, showEditForm, handleDeleteItem, onAdd}) {
+function MenuItem ({currentUser, setMenuItemId, menuItemId, item, handleEdit, showEditForm, handleDeleteItem, onAdd}) {
     const {name, description, price, image_url, id} = item
     
     function handleDelete (e) {
@@ -21,7 +20,6 @@ function MenuItem ({setMenuItemId, menuItemId, item, handleEdit, showEditForm, h
         handleEdit(e.target.id)
     }
 
-
     return (
         <div>
             <div className="display-card">
@@ -34,9 +32,25 @@ function MenuItem ({setMenuItemId, menuItemId, item, handleEdit, showEditForm, h
                 </div>}
                 <img className="food-img" src={image_url} alt={name}></img> 
                 <div className="edit-item-div">
-                    <button id={id} className ="button" onClick={(e) => callHandleEdit(e)}> Edit </button>
-                    <button className="button" onClick={() => onAdd(item)}> Add To Cart </button>
-                    <button id={id} className ="button" onClick={handleDelete}> Delete </button>
+                    {currentUser && currentUser.isRestaurant ? 
+                    <button 
+                        id={id} 
+                        className ="button" 
+                        onClick={(e) => callHandleEdit(e)}
+                    > Edit </button> : null}
+                    {currentUser && currentUser.isRestaurant ? 
+                    <button 
+                        id={id} 
+                        className ="button" 
+                        onClick={handleDelete}
+                    > Delete </button> : null}
+                </div>
+                <div className="add-cart-div">
+                    {currentUser && !currentUser.isRestaurant ? 
+                        <button 
+                            className="button" 
+                            onClick={() => onAdd(item)}
+                        > Add To Cart </button> : null}
                 </div>
             </div> 
             

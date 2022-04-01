@@ -14,8 +14,15 @@ function App() {
   const [restaurantsData, setRestaurantsData] = useState([])
   const [restaurant, setRestaurant] = useState(null)
   const [menuItems, setMenuItems] = useState([])
-  const [currentUser, setCurrentUser] = useState(null)
+  const [currentUser, setCurrentUser] = useState()
 
+  useEffect (() => {
+    fetch("/current_user")
+    .then(r => r.json())
+    .then(data => {
+      data ? setCurrentUser(data) : console.log("No login registered") 
+    })
+  }, [])
 
 
   useEffect(() => {
@@ -30,9 +37,6 @@ function App() {
     .then(setMenuItems)
   }, [])
 
-  // console.log(menuItems)
-
-  console.log(currentUser)
 
   return (
     <div className="App-container">

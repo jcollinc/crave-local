@@ -6,7 +6,14 @@ function Filter ({search, setSearch}) {
 
     return(
         <div>
-            <input type="text" placeholder="Search" onChange={handleSearch} value={search}/>
+            <input 
+                id="filter"
+                className="login-input" 
+                type="text" 
+                placeholder="Search" 
+                onChange={handleSearch} 
+                value={search}
+            />
         </div>
     )
 }

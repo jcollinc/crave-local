@@ -7,11 +7,11 @@ function RestaurantCard ({restaurant}) {
 
     return (
         <>
-            <div className="display-card">
+            <div className="resto-card">
                 <Link to={`/restaurants/${id}`} className="resto-nav-link">
                     <h3> {name} </h3>
                     <p> {description} </p>
-                    <img className="food-img" src={image_url} alt={name}></img>
+                    <img className="resto-img" src={image_url} alt={name}></img>
                 </Link> 
             </div> 
         </>

@@ -1,8 +1,16 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { NavLink, useHistory } from "react-router-dom"
 
 function Navbar( { currentUser, setCurrentUser }) {
 
+  useEffect (() => {
+    fetch("/current_user")
+    .then(r => r.json())
+    .then(data => {
+      data ? setCurrentUser(data) : console.log("No login registered")
+    })
+  }, [])
+  
   let history = useHistory();
 
   function handleLogout () {
@@ -49,7 +57,7 @@ function Navbar( { currentUser, setCurrentUser }) {
         </h2> : null}
         {currentUser ? 
         <NavLink to="/orders" className="nav-link">  
-          <h2 className="navbar-item">See Orders</h2>
+          {currentUser && currentUser.isRestaurant ? <h2 className="navbar-item">See Orders</h2> : null}
         </NavLink> : null  
       }
       </div>
